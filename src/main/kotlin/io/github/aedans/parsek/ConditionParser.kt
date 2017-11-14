@@ -14,5 +14,5 @@ fun <A, B> conditionParser(
     if (test(it))
         ParseResult.Success(input.drop(1), success(it))
     else
-        ParseResult.Failure(ParseError { "Condition $test failed for $it" })
+        ParseResult.Failure { "Condition $test failed for $it" }
 }
