@@ -15,18 +15,18 @@ import java.util.regex.Pattern
  * @param type    The type of the token for later parsing.
  * @param pattern The regex pattern of the token.
  */
-data class TokenInfo<out T>(
-        val type: T,
+data class TokenInfo<out A>(
+        val type: A,
         val pattern: Pattern
 )
 
 /**
  * Builder for creating a list of TokenInfo.
  */
-fun <T> tokens(builder: MutableList<TokenInfo<T>>.() -> Unit) = run {
-    val list = mutableListOf<TokenInfo<T>>()
+fun <A> tokens(builder: MutableList<TokenInfo<A>>.() -> Unit) = run {
+    val list = mutableListOf<TokenInfo<A>>()
     list.builder()
-    list as List<TokenInfo<T>>
+    list as List<TokenInfo<A>>
 }
 
 /**
@@ -34,8 +34,8 @@ fun <T> tokens(builder: MutableList<TokenInfo<T>>.() -> Unit) = run {
  *
  * @see TokenInfo
  */
-fun <T> MutableList<TokenInfo<T>>.token(
-        type: T,
+fun <A> MutableList<TokenInfo<A>>.token(
+        type: A,
         @Language("regexp") pattern: String
 ) = add(TokenInfo(type, "($pattern)".toPattern()))
 
@@ -45,7 +45,7 @@ fun <T> MutableList<TokenInfo<T>>.token(
  *
  * @param tokens The list of tokens to parse.
  */
-fun <T> Scanner.tokenize(tokens: List<TokenInfo<T>>) = generateSequence {
+fun <A> Scanner.tokenize(tokens: List<TokenInfo<A>>) = generateSequence {
     useDelimiter("")
     if (hasNext()) {
         tokenizeOne(tokens)
@@ -54,17 +54,17 @@ fun <T> Scanner.tokenize(tokens: List<TokenInfo<T>>) = generateSequence {
     }
 }.memoizedSequence
 
-fun <T> String.tokenize(tokens: List<TokenInfo<T>>) = Scanner(this).tokenize(tokens)
-fun <T> File.tokenize(tokens: List<TokenInfo<T>>) = Scanner(this).tokenize(tokens)
-fun <T> InputStream.tokenize(tokens: List<TokenInfo<T>>) = Scanner(this).tokenize(tokens)
-fun <T> Readable.tokenize(tokens: List<TokenInfo<T>>) = Scanner(this).tokenize(tokens)
+fun <A> String.tokenize(tokens: List<TokenInfo<A>>) = Scanner(this).tokenize(tokens)
+fun <A> File.tokenize(tokens: List<TokenInfo<A>>) = Scanner(this).tokenize(tokens)
+fun <A> InputStream.tokenize(tokens: List<TokenInfo<A>>) = Scanner(this).tokenize(tokens)
+fun <A> Readable.tokenize(tokens: List<TokenInfo<A>>) = Scanner(this).tokenize(tokens)
 
 /**
  * @see tokenize
  */
 class NoPatternMatchedException : Exception("No pattern matched")
 
-private tailrec fun <T> Scanner.tokenizeOne(tokens: List<TokenInfo<T>>): Token<T> =
+private tailrec fun <A> Scanner.tokenizeOne(tokens: List<TokenInfo<A>>): Token<A> =
         if (tokens.isEmpty()) {
             throw NoPatternMatchedException()
         } else {

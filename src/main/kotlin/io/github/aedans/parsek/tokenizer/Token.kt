@@ -6,7 +6,7 @@ package io.github.aedans.parsek.tokenizer
  * @param text The text of the token.
  * @param type The type of the token.
  */
-data class Token<out T>(
+data class Token<out A>(
         val text: String,
-        val type: T
+        val type: A
 )
