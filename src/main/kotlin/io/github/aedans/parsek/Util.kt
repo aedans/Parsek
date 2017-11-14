@@ -6,10 +6,7 @@ val <A> Sequence<A>.memoizedSequence get() = run  {
     object : Sequence<A> {
         override fun iterator() = object : Iterator<A> {
             var index = 0
-            override fun hasNext() = run {
-                fill()
-                iterator.hasNext()
-            }
+            override fun hasNext() = index < computed.size || iterator.hasNext()
 
             override fun next()= run {
                 fill()
@@ -35,4 +32,4 @@ fun <A, B> ParseResult<A, B>.toSuccess() = this as? ParseResult.Success
  * Converts a ParseResult to a ParseResult.Success or throws an exception.
  */
 fun <A, B> ParseResult<A, B>.toSuccessOrExcept() = toSuccess()
-        ?: throw Exception("Expected success, found $this")
+        ?: throw Exception("Unexpected $this")

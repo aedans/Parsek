@@ -2,6 +2,7 @@
 
 package io.github.aedans.parsek.tokenizer
 
+import io.github.aedans.parsek.memoizedSequence
 import org.intellij.lang.annotations.Language
 import java.io.File
 import java.io.InputStream
@@ -51,7 +52,7 @@ fun <T> Scanner.tokenize(tokens: List<TokenInfo<T>>) = generateSequence {
     } else {
         null
     }
-}
+}.memoizedSequence
 
 fun <T> String.tokenize(tokens: List<TokenInfo<T>>) = Scanner(this).tokenize(tokens)
 fun <T> File.tokenize(tokens: List<TokenInfo<T>>) = Scanner(this).tokenize(tokens)

@@ -15,6 +15,6 @@ fun <A, B> orParser(
     when {
         result1 is ParseResult.Success -> result1
         result2 is ParseResult.Success -> result2
-        else -> ParseResult.Failure { "No valid alternatives on ${input.first()}" }
+        else -> ParseResult.Failure { "No valid alternatives for ${input.first()}" }
     }
 }
