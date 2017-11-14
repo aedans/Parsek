@@ -10,8 +10,8 @@ sealed class ParseResult<out A, out B, out C> {
     /**
      * Class representing a successful parse result.
      *
-     * @param rest The remaining sequence to be parser.
-     * @param result   The result of the parse.
+     * @param rest   The remaining sequence to be parser.
+     * @param result The result of the parse.
      */
     data class Success<out A, out B>(
             val rest: Sequence<A>,
