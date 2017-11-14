@@ -25,3 +25,8 @@ val <A> Sequence<A>.memoizedSequence get() = run  {
         }
     }
 }
+
+/**
+ * Converts a ParseResult to a ParseResult.Success or null.
+ */
+fun <A, B> ParseResult<A, B>.toSuccess() = this as? ParseResult.Success
