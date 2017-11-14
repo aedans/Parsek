@@ -1,12 +1,12 @@
 package io.github.aedans.parsek
 
 /**
- * Creates a parser that fails if eiter parser fails.
+ * Creates a parser that parses two parsers sequentially or fails if either parser fails.
  *
  * @param parser1 The first parser to test.
  * @param parser2 The second parser to test.
  */
-fun <A, B1, B2> andParser(
+fun <A, B1, B2> thenParser(
         parser1: Parser<A, B1>,
         parser2: Parser<A, B2>
 ): Parser<A, Pair<B1, B2>> = { input ->
