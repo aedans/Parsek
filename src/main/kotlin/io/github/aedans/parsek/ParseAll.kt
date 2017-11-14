@@ -5,7 +5,7 @@ import io.github.aedans.cons.Nil
 import io.github.aedans.cons.cons
 
 /**
- * Pareses an entire sequence and returns a lazy sequence of results.
+ * Parses an entire sequence and returns a lazy sequence of results.
  * Throws a ParseException when a parse fails.
  *
  * @param input The sequence to parse.
