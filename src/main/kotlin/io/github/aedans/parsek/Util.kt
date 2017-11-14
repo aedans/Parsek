@@ -30,3 +30,9 @@ val <A> Sequence<A>.memoizedSequence get() = run  {
  * Converts a ParseResult to a ParseResult.Success or null.
  */
 fun <A, B> ParseResult<A, B>.toSuccess() = this as? ParseResult.Success
+
+/**
+ * Converts a ParseResult to a ParseResult.Success or throws an exception.
+ */
+fun <A, B> ParseResult<A, B>.toSuccessOrExcept() = toSuccess()
+        ?: throw Exception("Expected success, found $this")
