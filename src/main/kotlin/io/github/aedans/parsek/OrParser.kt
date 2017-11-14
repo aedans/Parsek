@@ -15,6 +15,10 @@ fun <A, B> orParser(
     when {
         result1 is ParseResult.Success -> result1
         result2 is ParseResult.Success -> result2
-        else -> ParseResult.Failure(input) { "No valid alternatives for ${input.first()}" }
+        else -> if (input.none()) {
+            ParseResult.Failure(input) { "Input is empty" }
+        } else {
+            ParseResult.Failure(input) { "No valid alternatives for ${input.first()}" }
+        }
     }
 }

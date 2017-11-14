@@ -22,9 +22,9 @@ fun <A> tokenParser(type: A) = conditionParser({ it: Token<A> -> it.type == type
  * @param type   The type of the token.
  * @param ignore The list of token types to ignore.
  */
-fun <A> tokenParser(type: A, ignore: List<A>) =
+fun <A> tokenParser(type: A, ignore: List<A>): TokenParser<A> =
         ignore.fold(tokenParser(type)) { parser, it ->
-            parser or (skip(tokenParser(it)) then parser)
+            parser or (skip(tokenParser(it)) then io.github.aedans.parsek.dsl.parser { tokenParser(type, ignore) })
         }
 
 typealias TokenParser<A> = Parser<Token<A>, Token<A>>
