@@ -6,7 +6,7 @@ import io.kotlintest.specs.StringSpec
 
 class MapErrParserTest : StringSpec() {
     init {
-        "Mapping successParser error should succeed" {
+        "Mapping successParser should succeed" {
             mapErrParser(successParser<Int>()) { it }(sequenceOf(0)) should succeed
         }
 
