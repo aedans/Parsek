@@ -4,7 +4,7 @@ import io.kotlintest.matchers.should
 import io.kotlintest.specs.StringSpec
 
 class LiteralParserTest : StringSpec() {
-    private val parseA = literalParser('a', {  })
+    private val parseA = literalParser('a')
 
     init {
         "parseA should succeed on a" {

@@ -6,8 +6,7 @@ import io.kotlintest.specs.StringSpec
 class ConditionParserTest : StringSpec() {
     private val isEvenParser = conditionParser(
             { it: Int -> it % 2 == 0 },
-            { "$it is even" },
-            { "$it is not even" }
+            { "$it is even" }
     )
 
     init {

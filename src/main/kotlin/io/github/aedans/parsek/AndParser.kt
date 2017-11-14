@@ -6,10 +6,10 @@ package io.github.aedans.parsek
  * @param parser1 The first parser to test.
  * @param parser2 The second parser to test.
  */
-fun <A, B1, B2, C> andParser(
-        parser1: Parser<A, B1, C>,
-        parser2: Parser<A, B2, C>
-): Parser<A, Pair<B1, B2>, C> = { input ->
+fun <A, B1, B2> andParser(
+        parser1: Parser<A, B1>,
+        parser2: Parser<A, B2>
+): Parser<A, Pair<B1, B2>> = { input ->
     val result1 = parser1(input)
     when (result1) {
         is ParseResult.Failure -> ParseResult.Failure(result1.err)

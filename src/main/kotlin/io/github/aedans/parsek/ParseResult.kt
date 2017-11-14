@@ -6,7 +6,7 @@ package io.github.aedans.parsek
  * @see Parser
  */
 @Suppress("unused")
-sealed class ParseResult<out A, out B, out C> {
+sealed class ParseResult<out A, out B> {
     /**
      * Class representing a successful parse result.
      *
@@ -16,12 +16,10 @@ sealed class ParseResult<out A, out B, out C> {
     data class Success<out A, out B>(
             val rest: Sequence<A>,
             val result: B
-    ) : ParseResult<A, B, Nothing>()
+    ) : ParseResult<A, B>()
 
     /**
      * Class representing a parse failure.
      */
-    data class Failure<out C>(
-            val err: C
-    ) : ParseResult<Nothing, Nothing, C>()
+    data class Failure(val err: ParseError) : ParseResult<Nothing, Nothing>()
 }

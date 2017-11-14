@@ -10,7 +10,7 @@ import io.github.aedans.cons.cons
  *
  * @param input The sequence to parse.
  */
-fun <A, B, C> Parser<A, B, C>.parseAll(input: Sequence<A>): Sequence<B> = run {
+fun <A, B> Parser<A, B>.parseAll(input: Sequence<A>): Sequence<B> = run {
     val parser = this
     fun parseAllCons(input: () -> Sequence<A>): Cons<B> =
         if (input().none()) {

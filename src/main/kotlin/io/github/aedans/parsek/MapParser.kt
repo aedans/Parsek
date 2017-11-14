@@ -6,9 +6,9 @@ package io.github.aedans.parsek
  * @param parser The parser to map.
  * @param map    The mapping function.
  */
-fun <A, B, C, D> mapParser(
-        parser: Parser<A, B, C>,
-        map: (B) -> D
+fun <A, B, C> mapParser(
+        parser: Parser<A, B>,
+        map: (B) -> C
 ) = { input: Sequence<A> ->
     val parseResult = parser(input)
     when (parseResult) {

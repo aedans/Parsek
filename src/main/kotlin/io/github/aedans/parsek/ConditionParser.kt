@@ -5,16 +5,14 @@ package io.github.aedans.parsek
  *
  * @param test    The condition to test.
  * @param success The result to return on success.
- * @param failure The result to return on failure.
  */
-fun <A, B, C> conditionParser(
+fun <A, B> conditionParser(
         test: (A) -> Boolean,
-        success: (A) -> B,
-        failure: (A) -> C
-): Parser<A, B, C> = { input ->
+        success: (A) -> B
+): Parser<A, B> = { input ->
     val it = input.first()
     if (test(it))
         ParseResult.Success(input.drop(1), success(it))
     else
-        ParseResult.Failure(failure(it))
+        ParseResult.Failure(ParseError { "Condition $test failed for $it" })
 }

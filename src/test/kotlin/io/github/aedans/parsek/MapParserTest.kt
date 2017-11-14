@@ -17,8 +17,7 @@ class MapParserTest : StringSpec() {
         "Mapping an integer parser by * 2 should double the output" {
             val result = mapParser(conditionParser(
                     { true },
-                    { it: Int -> it },
-                    {  }
+                    { it: Int -> it }
             )) { it * 2 }.parseAll((0..100).asSequence())
             result.zip((0..100).asSequence().map { it * 2 })
                     .forEach { (a, b) -> a shouldEqual b }

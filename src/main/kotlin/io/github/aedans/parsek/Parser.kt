@@ -7,6 +7,5 @@ package io.github.aedans.parsek
  *
  * @param A The type of the elements in the sequence.
  * @param B The type of the result.
- * @param C The type of the error.
  */
-typealias Parser<A, B, C> = (Sequence<A>) -> ParseResult<A, B, C>
+typealias Parser<A, B> = (Sequence<A>) -> ParseResult<A, B>
