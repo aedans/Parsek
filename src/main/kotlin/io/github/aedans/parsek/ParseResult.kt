@@ -21,7 +21,10 @@ sealed class ParseResult<out A, out B> {
     /**
      * Class representing a parse failure.
      */
-    class Failure(private val errF: () -> String) : ParseResult<Nothing, Nothing>() {
+    class Failure<out A>(
+            val rest: Sequence<A>,
+            private val errF: () -> String
+    ) : ParseResult<A, Nothing>() {
         val err get() = errF()
         override fun toString() = "Failure: $err"
     }

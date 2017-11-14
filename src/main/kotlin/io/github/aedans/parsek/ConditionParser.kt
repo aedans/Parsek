@@ -11,12 +11,12 @@ fun <A, B> conditionParser(
         success: (A) -> B
 ): Parser<A, B> = { input ->
     if (input.none()) {
-        ParseResult.Failure { "Input is empty" }
+        ParseResult.Failure(input) { "Input is empty" }
     } else {
         val it = input.first()
         if (test(it))
             ParseResult.Success(input.drop(1), success(it))
         else
-            ParseResult.Failure { "Condition $test failed for $it" }
+            ParseResult.Failure(input) { "Condition $test failed for $it" }
     }
 }

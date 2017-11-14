@@ -8,7 +8,7 @@ package io.github.aedans.parsek
  */
 fun <A, B> mapErrParser(
         parser: Parser<A, B>,
-        map: (ParseResult.Failure) -> ParseResult<A, B>
+        map: (ParseResult.Failure<A>) -> ParseResult<A, B>
 ) = { input: Sequence<A> ->
     val parseResult = parser(input)
     when (parseResult) {
