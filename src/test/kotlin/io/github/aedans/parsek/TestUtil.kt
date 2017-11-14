@@ -8,5 +8,3 @@ fun <A> identityParser() = conditionParser({ _: A -> true }, { it }, {  })
 
 val succeed = beInstanceOf(ParseResult.Success::class)
 val fail = beInstanceOf(ParseResult.Failure::class)
-
-val unitFailure = ParseResult.Failure(Unit)
