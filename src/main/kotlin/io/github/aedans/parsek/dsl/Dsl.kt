@@ -25,6 +25,11 @@ infix fun <A, B> Parser<A, B>.or(parser: Parser<A, B>) = orParser(this, parser)
 infix fun <A, B1, B2> Parser<A, B1>.then(parser: Parser<A, B2>) = thenParser(this, parser)
 
 /**
+ * @see listParser
+ */
+fun <A, B> list(parser: Parser<A, B>) = listParser(parser)
+
+/**
  * Creates a parser that is evaluated lazily.
  * This allows recursive and bi-recursive parsers, as well as parsers that depend on uninitialized objects.
  *

@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    compile 'io.github.aedans:parsek:1.0.1'
+    compile 'io.github.aedans:parsek:1.1.0'
 }
 ```
 
