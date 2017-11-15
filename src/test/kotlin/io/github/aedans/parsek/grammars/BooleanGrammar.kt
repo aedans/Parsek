@@ -10,23 +10,14 @@ import io.github.aedans.parsek.tokenizer.*
 typealias BooleanParser = Parser<Token<BooleanGrammar.TokenType>, Boolean>
 
 object BooleanGrammar : Grammar<BooleanGrammar.TokenType, Boolean> {
-    enum class TokenType : TokenParser<TokenType> {
-        WHITESPACE, TRUE, FALSE, AND, OR, NOT, OPEN_PAREN, CLOSE_PAREN;
+    enum class TokenType(val regexp: String) : TokenParser<TokenType> {
+        WS("\\s"), TRUE("true"), FALSE("false"), AND("&"), OR("\\|"), NOT("!"), OPEN_PAREN("\\("), CLOSE_PAREN("\\)");
 
-        private val parser = parser { tokenParser(this, ignore = listOf(WHITESPACE)) }
+        private val parser = parser { tokenParser(this, ignore = listOf(WS)) }
         override fun invoke(p1: Sequence<Token<TokenType>>) = parser(p1)
     }
 
-    override val tokens = tokens<TokenType> {
-        token(TokenType.WHITESPACE, "\\s")
-        token(TokenType.TRUE, "true")
-        token(TokenType.FALSE, "false")
-        token(TokenType.AND, "&")
-        token(TokenType.OR, "\\|")
-        token(TokenType.NOT, "!")
-        token(TokenType.OPEN_PAREN, "\\(")
-        token(TokenType.CLOSE_PAREN, "\\)")
-    }
+    override val tokens = TokenType.values().map { TokenInfo(it, it.regexp.toPattern()) }
 
     val trueParser = TokenType.TRUE map { true }
     val falseParser = TokenType.FALSE map { false }

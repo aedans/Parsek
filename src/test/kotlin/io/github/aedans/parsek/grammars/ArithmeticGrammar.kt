@@ -16,21 +16,14 @@ object ArithmeticGrammar : Grammar<ArithmeticGrammar.TokenType, ArithmeticGramma
         data class Times(val expr1: Expr, val expr2: Expr) : Expr()
     }
 
-    enum class TokenType : TokenParser<TokenType> {
-        WS, INT, PLUS, TIMES, OPEN_PAREN, CLOSE_PAREN;
+    enum class TokenType(val regexp: String) : TokenParser<TokenType> {
+        WS("\\s"), INT("[0-9]+"), PLUS("\\+"), TIMES("\\*"), OPEN_PAREN("\\("), CLOSE_PAREN("\\)");
 
         private val parser = parser { tokenParser(this, ignore = listOf(WS)) }
         override fun invoke(p1: Sequence<Token<TokenType>>) = parser(p1)
     }
 
-    override val tokens = tokens<TokenType> {
-        token(TokenType.WS, "\\s")
-        token(TokenType.INT, "[0-9]+")
-        token(TokenType.PLUS, "\\+")
-        token(TokenType.TIMES, "\\*")
-        token(TokenType.OPEN_PAREN, "\\(")
-        token(TokenType.CLOSE_PAREN, "\\)")
-    }
+    override val tokens = TokenType.values().map { TokenInfo(it, it.regexp.toPattern()) }
 
     override val root: ExpressionParser = parser(this::expression)
 
