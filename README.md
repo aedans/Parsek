@@ -19,8 +19,8 @@ dependencies {
 }
 ```
 
-Example
--------
+Simple Boolean Grammar
+----------------------
 
 ```kotlin
 typealias BooleanParser = Parser<Token<BooleanGrammar.TokenType>, Boolean>
