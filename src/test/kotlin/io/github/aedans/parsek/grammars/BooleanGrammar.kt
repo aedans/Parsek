@@ -1,24 +1,12 @@
-Parsek
-======
+@file:Suppress("MemberVisibilityCanPrivate")
 
-A fast and extensible parser combinator library for [Kotlin](http://kotlinlang.org) based on
-[Parsec](https://github.com/haskell/parsec).
+package io.github.aedans.parsek.grammars
 
-Using with gradle
------------------
+import io.github.aedans.parsek.Parser
+import io.github.aedans.parsek.dsl.*
+import io.github.aedans.parsek.grammar.Grammar
+import io.github.aedans.parsek.tokenizer.*
 
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        compile 'io.github.aedans:parsek:1.0.0'
-    }
-
-Example
--------
-
-```kotlin
 typealias BooleanParser = Parser<Token<BooleanGrammar.TokenType>, Boolean>
 
 object BooleanGrammar : Grammar<BooleanGrammar.TokenType, Boolean> {
@@ -51,6 +39,3 @@ object BooleanGrammar : Grammar<BooleanGrammar.TokenType, Boolean> {
 
     override val root = expressionParser
 }
-
-val result = BooleanGrammar("...")
-```
