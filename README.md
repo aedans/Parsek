@@ -55,7 +55,7 @@ More example grammars are available [here](https://github.com/aedans/parsek/tree
 Why Parsek?
 -----------
 
-- Simple and extendable DSL
+- Simple and extensible DSL
 - Input is parsed lazily, output is generated lazily
 - Tokens maintain source position
 - Arbitrary input: Tokens and Grammar are just Parser specializations
