@@ -45,7 +45,7 @@ operator fun <T, E> Grammar<T, E>.invoke(readable: Readable) = invoke(Scanner(re
 /**
  * @see parseAll
  */
-fun <T, E> Grammar<T, E>.parseAll(scanner: Scanner) = root.parseAll(scanner.tokenize(tokens))
+fun <T, E> Grammar<T, E>.parseAll(scanner: Scanner) = root.parseAll(tokenize(scanner))
 fun <T, E> Grammar<T, E>.parseAll(string: String) = parseAll(Scanner(string))
 fun <T, E> Grammar<T, E>.parseAll(file: File) = parseAll(Scanner(file))
 fun <T, E> Grammar<T, E>.parseAll(inputStream: InputStream) = parseAll(Scanner(inputStream))
