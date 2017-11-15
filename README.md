@@ -59,6 +59,8 @@ object BooleanGrammar : Grammar<BooleanGrammar.TokenType, Boolean> {
 val result = BooleanGrammar("...")
 ```
 
+More example grammars are available [here](https://github.com/aedans/parsek/tree/master/src/test/kotlin/io/github/aedans/parsek/grammars)
+
 Why Parsek?
 -----------
 
@@ -67,3 +69,5 @@ Why Parsek?
 - Tokens maintain source position
 - Arbitrary input: Tokens and Grammar are just Parser specializations
 - Support for semantic newlines/whitespace
+
+
