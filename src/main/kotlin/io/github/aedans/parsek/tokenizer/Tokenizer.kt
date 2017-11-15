@@ -8,6 +8,7 @@ import java.io.File
 import java.io.InputStream
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.coroutines.experimental.buildSequence
 
 /**
  * Info representing a token.
@@ -45,12 +46,23 @@ fun <A> MutableList<TokenInfo<A>>.token(
  *
  * @param tokens The list of tokens to parse.
  */
-fun <A> Scanner.tokenize(tokens: List<TokenInfo<A>>) = generateSequence {
+fun <A> Scanner.tokenize(tokens: List<TokenInfo<A>>) = buildSequence {
     useDelimiter("")
-    if (hasNext()) {
-        tokenizeOne(tokens)
-    } else {
-        null
+    var row = 1
+    var col = 1
+
+    while (hasNext()) {
+        val token = tokenizeOne(row, col, tokens)
+
+        // row/col code adapted from com.github.h0tk3y.betterParse
+        col += token.text.length
+
+        val addRows = token.text.count { it == '\n' }
+        row += addRows
+        if (addRows > 0)
+            col = token.text.length - token.text.lastIndexOf('\n')
+
+        yield(token)
     }
 }.memoizedSequence
 
@@ -64,16 +76,16 @@ fun <A> Readable.tokenize(tokens: List<TokenInfo<A>>) = Scanner(this).tokenize(t
  */
 class UnexpectedCharacterException(char: Char) : Exception("Unexpected character $char")
 
-private tailrec fun <A> Scanner.tokenizeOne(tokens: List<TokenInfo<A>>): Token<A> =
+private tailrec fun <A> Scanner.tokenizeOne(row: Int, col: Int, tokens: List<TokenInfo<A>>): Token<A> =
         if (tokens.isEmpty()) {
             throw UnexpectedCharacterException(next(".").first())
         } else {
             val (type, pattern) = tokens.first()
             if (!hasNext(pattern)) {
-                tokenizeOne(tokens.drop(1))
+                tokenizeOne(row, col, tokens.drop(1))
             } else {
                 skip(pattern)
                 val token = match().group()
-                Token(token, type)
+                Token(token, type, row, col)
             }
         }

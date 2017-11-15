@@ -30,3 +30,9 @@ dependencies {
 test {
 
 }
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
