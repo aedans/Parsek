@@ -1,6 +1,8 @@
 Parsek
 ======
 
+[![Download](https://api.bintray.com/packages/aedans/maven/parsek/images/download.svg)](https://bintray.com/aedans/maven/parsek/_latestVersion)
+
 A fast and extensible parser combinator library for [Kotlin](http://kotlinlang.org) based on
 [Parsec](https://github.com/haskell/parsec).
 
