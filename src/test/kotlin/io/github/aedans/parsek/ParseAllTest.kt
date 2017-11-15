@@ -7,17 +7,13 @@ import io.kotlintest.specs.StringSpec
 class ParseAllTest : StringSpec() {
     init {
         "successParser.parseAll should succeed" {
-            successParser<Int>().parseAll((0..100).asSequence()).toList()
+            successParser<Int>().parseAll((0..100).asSequence()).forEach {  }
         }
 
         "failureParser.parseAll should fail" {
             shouldThrow<ParseException> {
-                failureParser<Int>().parseAll((0..100).asSequence()).toList()
+                failureParser<Int>().parseAll((0..100).asSequence()).forEach {  }
             }
-        }
-
-        "parseAll should be stack safe" {
-            successParser<Int>().parseAll((0..10000).asSequence()).toList()
         }
 
         "parseAll should be in order" {

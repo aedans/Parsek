@@ -1,5 +1,5 @@
 group 'io.github.aedans'
-version '1.0.0'
+version '1.0.1'
 
 buildscript {
     ext.kotlin_version = '1.1.60'
@@ -27,7 +27,6 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile 'io.github.aedans:kotlin-cons:2.0.2'
     testCompile 'io.kotlintest:kotlintest:2.0.7'
 }
 

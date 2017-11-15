@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    compile 'io.github.aedans:parsek:1.0.0'
+    compile 'io.github.aedans:parsek:1.0.1'
 }
 ```
 
@@ -69,5 +69,3 @@ Why Parsek?
 - Tokens maintain source position
 - Arbitrary input: Tokens and Grammar are just Parser specializations
 - Support for semantic newlines/whitespace
-
-
