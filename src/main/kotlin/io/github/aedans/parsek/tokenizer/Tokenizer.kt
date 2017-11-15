@@ -41,7 +41,7 @@ fun <A> MutableList<TokenInfo<A>>.token(
 
 /**
  * Returns a lazy sequence of tokens from a scanner.
- * If unable to match the entire scanner, throws a NoPatternMatchedException.
+ * If unable to match the entire scanner, throws an UnexpectedCharacterException.
  *
  * @param tokens The list of tokens to parse.
  */
@@ -62,11 +62,11 @@ fun <A> Readable.tokenize(tokens: List<TokenInfo<A>>) = Scanner(this).tokenize(t
 /**
  * @see tokenize
  */
-class NoPatternMatchedException : Exception("No pattern matched")
+class UnexpectedCharacterException(char: Char) : Exception("Unexpected character $char")
 
 private tailrec fun <A> Scanner.tokenizeOne(tokens: List<TokenInfo<A>>): Token<A> =
         if (tokens.isEmpty()) {
-            throw NoPatternMatchedException()
+            throw UnexpectedCharacterException(next(".").first())
         } else {
             val (type, pattern) = tokens.first()
             if (!hasNext(pattern)) {
