@@ -54,3 +54,13 @@ object BooleanGrammar : Grammar<BooleanGrammar.TokenType, Boolean> {
 
 val result = BooleanGrammar("...")
 ```
+
+Why Parsek?
+-----------
+
+- Very fast 
+- Simple and extendable DSL
+- Input is parsed lazily, output is generated lazily
+- Tokens maintain source position
+- Arbitrary input: Tokens and Grammar are just Parser specializations
+- Support for semantic newlines/whitespace
