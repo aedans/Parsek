@@ -15,10 +15,12 @@ fun <A, B> orParser(
     when {
         result1 is ParseResult.Success -> result1
         result2 is ParseResult.Success -> result2
-        else -> if (input.none()) {
-            ParseResult.Failure(input) { "Input is empty" }
-        } else {
-            ParseResult.Failure(input) { "No valid alternatives for ${input.first()}" }
+        else -> ParseResult.Failure(input) {
+            "No valid alternatives for ${try {
+                input.first()
+            } catch (_: NoSuchElementException) {
+                input
+            }}"
         }
     }
 }
