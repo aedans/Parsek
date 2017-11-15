@@ -58,7 +58,6 @@ val result = BooleanGrammar("...")
 Why Parsek?
 -----------
 
-- Very fast 
 - Simple and extendable DSL
 - Input is parsed lazily, output is generated lazily
 - Tokens maintain source position
