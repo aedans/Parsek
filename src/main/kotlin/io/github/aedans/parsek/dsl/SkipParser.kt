@@ -30,3 +30,11 @@ infix fun <A, B2> SkipParser<A, *>.then(parser: Parser<A, B2>) =
  */
 infix fun <A, B1> Parser<A, B1>.then(parser: SkipParser<A, *>) =
         thenParser(this, parser) map { it.first }
+
+/**
+ * Overload for then that ignores the both parsers's arguments.
+ *
+ * @see thenParser
+ */
+infix fun <A> SkipParser<A, *>.then(parser: SkipParser<A, *>) =
+        thenParser(this, parser) map {  }
