@@ -9,13 +9,15 @@ A fast and extensible parser combinator library for [Kotlin](http://kotlinlang.o
 Using with gradle
 -----------------
 
-    repositories {
-        maven { url 'https://dl.bintray.com/aedans/maven/' }
-    }
+```gradle
+repositories {
+    maven { url 'https://dl.bintray.com/aedans/maven/' }
+}
 
-    dependencies {
-        compile 'io.github.aedans:parsek:1.0.0'
-    }
+dependencies {
+    compile 'io.github.aedans:parsek:1.0.0'
+}
+```
 
 Example
 -------
