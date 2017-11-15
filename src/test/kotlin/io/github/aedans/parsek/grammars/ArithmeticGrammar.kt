@@ -7,20 +7,20 @@ import io.github.aedans.parsek.dsl.*
 import io.github.aedans.parsek.grammar.Grammar
 import io.github.aedans.parsek.tokenizer.*
 
-private typealias ExprParser = Parser<Token<ArithmeticGrammar.TokenType>, ArithmeticGrammar.Expr>
+private typealias ExpressionParser = Parser<Token<ArithmeticGrammar.TokenType>, ArithmeticGrammar.Expr>
 
 object ArithmeticGrammar : Grammar<ArithmeticGrammar.TokenType, ArithmeticGrammar.Expr> {
-    enum class TokenType : TokenParser<TokenType> {
-        WS, INT, PLUS, TIMES, OPEN_PAREN, CLOSE_PAREN;
-
-        private val parser: TokenParser<TokenType> = parser { tokenParser(this, ignore = listOf(WS)) }
-        override fun invoke(p1: Sequence<Token<TokenType>>) = parser(p1)
-    }
-
     sealed class Expr {
         data class Int(val int: kotlin.Int) : Expr()
         data class Plus(val expr1: Expr, val expr2: Expr) : Expr()
         data class Times(val expr1: Expr, val expr2: Expr) : Expr()
+    }
+
+    enum class TokenType : TokenParser<TokenType> {
+        WS, INT, PLUS, TIMES, OPEN_PAREN, CLOSE_PAREN;
+
+        private val parser = parser { tokenParser(this, ignore = listOf(WS)) }
+        override fun invoke(p1: Sequence<Token<TokenType>>) = parser(p1)
     }
 
     override val tokens = tokens<TokenType> {
@@ -32,30 +32,30 @@ object ArithmeticGrammar : Grammar<ArithmeticGrammar.TokenType, ArithmeticGramma
         token(TokenType.CLOSE_PAREN, "\\)")
     }
 
-    override val root: ExprParser = parser(this::expression)
+    override val root: ExpressionParser = parser(this::expression)
 
-    val expression: ExprParser = parser(this::additiveExpression)
+    val expression: ExpressionParser = parser(this::additiveExpression)
 
-    val additiveExpression: ExprParser =
+    val additiveExpression: ExpressionParser =
             parser(this::multiplicativeExpression) then
                     optional(skip(TokenType.PLUS) then
                             parser(this::additiveExpression)) map { (a, b) ->
                 if (b != null) Expr.Plus(a, b) else a
             }
 
-    val multiplicativeExpression: ExprParser =
+    val multiplicativeExpression: ExpressionParser =
             parser(this::atomicExpression) then
                     optional(skip(TokenType.TIMES) then
                             parser(this::multiplicativeExpression)) map { (a, b) ->
                 if (b != null) Expr.Times(a, b) else a
             }
 
-    val atomicExpression: ExprParser =
+    val atomicExpression: ExpressionParser =
             parser(this::intExpression) or parser(this::parenExpression)
 
-    val intExpression: ExprParser =
+    val intExpression: ExpressionParser =
             TokenType.INT map { Expr.Int(it.text.toInt()) }
 
-    val parenExpression: ExprParser =
+    val parenExpression: ExpressionParser =
             skip(TokenType.OPEN_PAREN) then parser(this::expression) then skip(TokenType.CLOSE_PAREN)
 }
