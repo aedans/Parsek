@@ -8,6 +8,7 @@ import java.io.File
 import java.io.InputStream
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.NoSuchElementException
 import kotlin.coroutines.experimental.buildSequence
 
 /**
@@ -74,18 +75,19 @@ fun <A> Readable.tokenize(tokens: List<TokenInfo<A>>) = Scanner(this).tokenize(t
 /**
  * @see tokenize
  */
-class UnexpectedCharacterException(char: Char) : Exception("Unexpected character $char")
+class UnexpectedCharacterException(string: String) : Exception("Unexpected $string")
 
-private tailrec fun <A> Scanner.tokenizeOne(row: Int, col: Int, tokens: List<TokenInfo<A>>): Token<A> =
+private fun <A> Scanner.tokenizeOne(row: Int, col: Int, tokens: List<TokenInfo<A>>): Token<A> =
         if (tokens.isEmpty()) {
-            throw UnexpectedCharacterException(next(".").first())
+            throw UnexpectedCharacterException(next(".*"))
         } else {
             val (type, pattern) = tokens.first()
-            if (!hasNext(pattern)) {
-                tokenizeOne(row, col, tokens.drop(1))
-            } else {
+            // Scanner code adapted from com.github.h0tk3y.betterParse
+            try {
                 skip(pattern)
                 val token = match().group()
                 Token(token, type, row, col)
+            } catch (_: NoSuchElementException) {
+                tokenizeOne(row, col, tokens.drop(1))
             }
         }

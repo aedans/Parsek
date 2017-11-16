@@ -5,6 +5,7 @@ package io.github.aedans.parsek.grammars
 import io.github.aedans.parsek.Parser
 import io.github.aedans.parsek.dsl.*
 import io.github.aedans.parsek.grammar.Grammar
+import io.github.aedans.parsek.grammar.parseAll
 import io.github.aedans.parsek.tokenizer.*
 
 typealias BooleanParser = Parser<Token<BooleanGrammar.TokenType>, Boolean>
@@ -29,4 +30,8 @@ object BooleanGrammar : Grammar<BooleanGrammar.TokenType, Boolean> {
     val expressionParser: BooleanParser = orParser
 
     override val root = expressionParser
+}
+
+fun main(args: Array<String>) {
+    BooleanGrammar.parseAll("true & false").forEach { println(it) }
 }
