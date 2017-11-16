@@ -3,7 +3,7 @@ package io.github.aedans.parsek
 /**
  * Parses a list of elements.
  *
- * @param parser The parser to parse a single element
+ * @param parser The parser to parse a single element.
  */
 fun <A, B> listParser(parser: Parser<A, B>) = { input: Sequence<A> ->
     tailrec fun parseAcc(input: Sequence<A>, acc: List<B>): ParseResult<A, List<B>> {

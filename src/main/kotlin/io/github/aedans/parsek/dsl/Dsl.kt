@@ -11,8 +11,8 @@ infix fun <A, B, C> Parser<A, B>.map(map: (B) -> C) =
 /**
  * @see mapErr
  */
-infix fun <A, B> Parser<A, B>.mapErr(map: (String) -> String) =
-        mapErrParser(this) { ParseResult.Failure(it.rest) { map(it.err) } }
+infix fun <A, B> Parser<A, B>.mapErr(map: (ParseResult.Failure<A>) -> ParseResult<A, B>) =
+        mapErrParser(this) { map(it) }
 
 /**
  * @see orParser
