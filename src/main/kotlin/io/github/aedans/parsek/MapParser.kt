@@ -13,6 +13,6 @@ fun <A, B, C> mapParser(
     val parseResult = parser(input)
     when (parseResult) {
         is ParseResult.Success -> map(parseResult)
-        is ParseResult.Failure -> parseResult
+        is ParseResult.Failure -> parseResult.copy(rest = input)
     }
 }

@@ -12,11 +12,11 @@ fun <A, B1, B2> thenParser(
 ): Parser<A, Pair<B1, B2>> = { input ->
     val result1 = parser1(input)
     when (result1) {
-        is ParseResult.Failure -> result1
+        is ParseResult.Failure -> result1.copy(rest = input)
         is ParseResult.Success -> {
             val result2 = parser2(result1.rest)
             when (result2) {
-                is ParseResult.Failure -> result2
+                is ParseResult.Failure -> result2.copy(rest = input)
                 is ParseResult.Success -> ParseResult.Success(result2.rest, result1.result to result2.result)
             }
         }

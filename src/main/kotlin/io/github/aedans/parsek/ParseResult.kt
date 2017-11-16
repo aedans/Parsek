@@ -21,7 +21,7 @@ sealed class ParseResult<out A, out B> {
     /**
      * Class representing a parse failure.
      */
-    class Failure<out A>(
+    data class Failure<out A>(
             val rest: Sequence<A>,
             private val errF: () -> String
     ) : ParseResult<A, Nothing>() {

@@ -12,7 +12,7 @@ fun <A, B> mapErrParser(
 ) = { input: Sequence<A> ->
     val parseResult = parser(input)
     when (parseResult) {
-        is ParseResult.Success -> parseResult
+        is ParseResult.Success -> parseResult.copy(rest = input)
         is ParseResult.Failure -> map(parseResult)
     }
 }
