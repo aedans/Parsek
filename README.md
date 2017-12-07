@@ -6,7 +6,7 @@ Parsek
 A fast and extensible parser combinator library for [Kotlin](http://kotlinlang.org) based on
 [Parsec](https://github.com/haskell/parsec).
 
-Using with gradle
+Gradle
 -----------------
 
 ```gradle
@@ -15,9 +15,19 @@ repositories {
 }
 
 dependencies {
-    compile 'io.github.aedans:parsek:1.1.0'
+    compile 'io.github.aedans:parsek:1.2.1'
 }
 ```
+
+Features
+--------
+
+- Standard parser combinators
+- Simple and extensible DSL
+- Completely lazy
+- Tokens maintain source position
+- Arbitrary input: Tokens and Grammar are just Parser specializations
+- Support for semantic newlines/whitespace
 
 Example Boolean Grammar
 -----------------------
@@ -51,12 +61,3 @@ val result = BooleanGrammar("...")
 ```
 
 More example grammars are available [here](https://github.com/aedans/parsek/tree/master/src/test/kotlin/io/github/aedans/parsek/grammars)
-
-Why Parsek?
------------
-
-- Simple and extensible DSL
-- Input is parsed lazily, output is generated lazily
-- Tokens maintain source position
-- Arbitrary input: Tokens and Grammar are just Parser specializations
-- Support for semantic newlines/whitespace
