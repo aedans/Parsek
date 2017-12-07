@@ -16,9 +16,9 @@ data class Token<out A>(
 ) {
     override fun toString() = "Token(" +
             "text=\"${text
-                    .replace("\r", "\\\r")
-                    .replace("\n", "\\\n")
-                    .replace("\t", "\\\t")
+                    .replace("\r", "\\r")
+                    .replace("\n", "\\n")
+                    .replace("\t", "\\t")
                     .replace("\"", "\\\"")}\", " +
             "type=$type, " +
             "row=$row, " +
