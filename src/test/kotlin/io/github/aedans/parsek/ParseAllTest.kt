@@ -1,7 +1,6 @@
 package io.github.aedans.parsek
 
-import io.kotlintest.matchers.shouldEqual
-import io.kotlintest.matchers.shouldThrow
+import io.kotlintest.matchers.*
 import io.kotlintest.specs.StringSpec
 
 class ParseAllTest : StringSpec() {
