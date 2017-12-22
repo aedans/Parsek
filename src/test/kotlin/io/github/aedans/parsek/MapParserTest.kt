@@ -1,7 +1,6 @@
 package io.github.aedans.parsek
 
-import io.kotlintest.matchers.should
-import io.kotlintest.matchers.shouldEqual
+import io.kotlintest.matchers.*
 import io.kotlintest.specs.StringSpec
 
 class MapParserTest : StringSpec() {
@@ -15,12 +14,10 @@ class MapParserTest : StringSpec() {
         }
 
         "Mapping an integer parser's result by * 2 should double the output" {
-            val result = sequenceParser(mapParser(conditionParser(
+            mapParser(conditionParser(
                     { true },
                     { it: Int -> it }
-            )) { it.copy(result = it.result * 2) })((0..100).asSequence()).result
-            result.zip((0..100).asSequence().map { it * 2 })
-                    .forEach { (a, b) -> a shouldEqual b }
+            )) { it.copy(result = it.result * 2) }(sequenceOf(50)).toSuccessOrExcept().result shouldBe 100
         }
     }
 }
