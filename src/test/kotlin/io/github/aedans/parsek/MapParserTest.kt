@@ -15,10 +15,10 @@ class MapParserTest : StringSpec() {
         }
 
         "Mapping an integer parser's result by * 2 should double the output" {
-            val result = mapParser(conditionParser(
+            val result = sequenceParser(mapParser(conditionParser(
                     { true },
                     { it: Int -> it }
-            )) { it.copy(result = it.result * 2) }.parseAll((0..100).asSequence())
+            )) { it.copy(result = it.result * 2) })((0..100).asSequence()).result
             result.zip((0..100).asSequence().map { it * 2 })
                     .forEach { (a, b) -> a shouldEqual b }
         }

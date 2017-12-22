@@ -57,7 +57,9 @@ object BooleanGrammar : Grammar<BooleanGrammar.TokenType, Boolean> {
     override val root = expressionParser
 }
 
-val result = BooleanGrammar("...")
+fun main(args: Array<String>) {
+    BooleanGrammar("...")
+}
 ```
 
 More example grammars are available [here](https://github.com/aedans/parsek/tree/master/src/test/kotlin/io/github/aedans/parsek/grammars)

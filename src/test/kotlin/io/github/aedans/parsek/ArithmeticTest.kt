@@ -1,6 +1,6 @@
 package io.github.aedans.parsek
 
-import io.github.aedans.parsek.grammar.invoke
+import io.github.aedans.parsek.grammar.*
 import io.github.aedans.parsek.grammars.ArithmeticGrammar
 import io.kotlintest.matchers.should
 import io.kotlintest.matchers.shouldEqual
