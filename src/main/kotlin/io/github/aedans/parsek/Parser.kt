@@ -1,11 +1,16 @@
 package io.github.aedans.parsek
 
-/**
- * The core parser type.
- *
- * A parser takes in an input sequence and returns either the remaining sequence and a result or an error.
- *
- * @param A The type of the elements in the sequence.
- * @param B The type of the result.
- */
-typealias Parser<A, B> = (Sequence<A>) -> ParseResult<A, B>
+import arrow.core.Eval
+import io.github.aedans.kons.*
+import io.github.aedans.parsek.ParseResult.*
+
+typealias Parser<I, O, S> = (input: Cons<I>, state: S) -> ParseResult<I, O, S>
+
+fun <I, O, S> Parser<I, O, S>.parseAll(input: Cons<I>, state: S): Cons<O> = run {
+    val result = this(input, state)
+    when (result) {
+        EOF -> Nil
+        is Success -> result.result cons Eval.later { parseAll(result.rest, result.state) }
+        is Failure -> throw Exception(result.string.value())
+    }
+}

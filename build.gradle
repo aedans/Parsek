@@ -1,8 +1,8 @@
 group 'io.github.aedans'
-version '1.5.1'
+version '0.0.1'
 
 buildscript {
-    ext.kotlin_version = '1.2.10'
+    ext.kotlin_version = '1.2.30'
 
     repositories {
         mavenCentral()
@@ -23,10 +23,12 @@ apply plugin: 'maven-publish'
 repositories {
     mavenCentral()
     jcenter()
+    maven { url "https://dl.bintray.com/aedans/maven/" }
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile 'io.github.aedans:kons:4.0.1'
     testCompile 'io.kotlintest:kotlintest:2.0.7'
 }
 
